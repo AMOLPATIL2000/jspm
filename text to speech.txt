@@ -1,0 +1,10 @@
+
+config = speech.SpeechConfig(subscription="aec67b61dcbf4f48a8d63791c98afe2a", region="westus2")
+audio_config = speech.audio.AudioOutputConfig(use_default_speaker=True)
+config.speech_synthesis_voice_name='en-US-JennyNeural'
+speech_synthesizer = speech.SpeechSynthesizer(speech_config=config, audio_config=audio_config)
+print("Enter some text that you want to speak >")
+text = input()
+speech_synthesis_result = speech_synthesizer.speak_text_async(text).get()
+stream = speech.AudioDataStream(speech_synthesis_result)
+stream.save_to_wav_file("d://file.wav")
